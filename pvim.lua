@@ -1,4 +1,4 @@
-local portable = os.getenv("RNVIM")
+local portable = os.getenv("PVIM")
 if portable then
   vim.opt.rtp:append(portable .. "/config")
   vim.opt.rtp:append(portable .. "/pack/packer/start/*")
