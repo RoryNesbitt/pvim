@@ -1,11 +1,11 @@
-local portable = os.getenv("PVIM")
-if portable then
-  vim.opt.rtp:append(portable .. "/config")
-  vim.opt.rtp:append(portable .. "/pack/packer/start/*")
-  vim.opt.rtp:append(portable .. "/pack/packer/opt/*")
+local dir = os.getenv("PVIM")
+if dir then
+  vim.opt.rtp:append(dir .. "/config")
+  vim.opt.rtp:append(dir .. "/pack/packer/start/*")
+  vim.opt.rtp:append(dir .. "/pack/packer/opt/*")
 
   local fn = vim.fn
-  local install_path = portable .. "/pack/packer/start/packer.nvim"
+  local install_path = dir .. "/pack/packer/start/packer.nvim"
   if fn.empty(fn.glob(install_path)) > 0 then
     Packer_bootstrap = fn.system({
       "git",
@@ -30,7 +30,7 @@ if portable then
         return require("packer.util").float({})
       end,
     },
-    package_root = portable .. '/pack',
-    compile_path = portable .. '/plugin/packer_compiled.lua',
+    package_root = dir .. '/pack',
+    compile_path = dir .. '/plugin/packer_compiled.lua',
   })
 end
