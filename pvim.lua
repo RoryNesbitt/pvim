@@ -2,6 +2,7 @@ local portable = os.getenv("RNVIM")
 if portable then
   vim.opt.rtp:append(portable .. "/config")
   vim.opt.rtp:append(portable .. "/pack/packer/start/*")
+  vim.opt.rtp:append(portable .. "/pack/packer/opt/*")
 
   local fn = vim.fn
   local install_path = portable .. "/pack/packer/start/packer.nvim"
