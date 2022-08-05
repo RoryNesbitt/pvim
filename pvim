@@ -1,4 +1,4 @@
 #!/bin/sh
 
 export RNVIM=$(dirname $(readlink -e -- "$0"))
-nvim --clean -c "so $RNVIM/pvim.lua" -c "so $RNVIM/config/init.lua" $@
+$RNVIM/nvim.appimage --clean -c "so $RNVIM/pvim.lua" -c "so $RNVIM/config/init.lua" $@
