@@ -31,5 +31,6 @@ if portable then
       end,
     },
     package_root = portable .. '/pack',
+    compile_path = portable .. '/plugin/packer_compiled.lua',
   })
 end
