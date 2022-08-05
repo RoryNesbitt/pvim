@@ -1,4 +1,6 @@
 #!/bin/sh
 
 export RNVIM=$(dirname $(readlink -e -- "$0"))
+
+[ -f $RNVIM/nvim.appimage ] || curl -Lo $RNVIM/nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage && chmod u+x $RNVIM/nvim.appimage
 $RNVIM/nvim.appimage --clean -c "so $RNVIM/pvim.lua" -c "so $RNVIM/config/init.lua" $@
