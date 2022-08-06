@@ -29,7 +29,9 @@ git clone <YOURCONFIG> pvim/config
 
 - PackerSync gives an error about opening file /path/to/manifest
 - Probably related. Files required by a `config = ..` in packer will not be
-required on running pvim. They will be after then running `:PackerCompile`
+required on running pvim. They will be after then running `:PackerCompile` (Temp
+fix added to the launch command. It's weird the first time you launch but it
+works[I don't like it])
 
 ## ToDo
 
@@ -39,3 +41,4 @@ required on running pvim. They will be after then running `:PackerCompile`
 - [x] improve the update-command to update your config as well as the appimage
 - [ ] Fix that one error from packer `Can't open file /path/to/manifest for writing`
 - [ ] Add windows compatibility
+- [ ] Remove the PackerCompile workaround, or at least make it nicer
