@@ -25,6 +25,12 @@ git clone https://github.com/RoryNesbitt/pvim
 git clone <YOURCONFIG> pvim/config
 ```
 
+## Known issues
+
+- PackerSync gives an error about opening file /path/to/manifest
+- Probably related. Files required by a `config = ..` in packer will not be
+required on running pvim. They will be after then running `:PackerCompile`
+
 ## ToDo
 
 - [x] Check the commands actually work
