@@ -3,4 +3,4 @@
 export PVIM=$(dirname $(readlink -e -- "$0"))
 
 [ -f $PVIM/nvim.appimage ] || curl -Lo $PVIM/nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage && chmod u+x $PVIM/nvim.appimage
-$PVIM/nvim.appimage --clean -c "so $PVIM/pvim.lua" -c "so $PVIM/config/init.lua" $@
+$PVIM/nvim.appimage --clean --cmd "so $PVIM/pvim.lua" -u "$PVIM/config/init.lua" $@
