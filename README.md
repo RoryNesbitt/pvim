@@ -2,7 +2,7 @@
 
 ## installation
 
-Pvim, AKA seanvim, is an allinone-directory neovim wrapper.
+pvim, AKA seanvim, is an AllInOne-directory Neovim wrapper.
 
 To install it alongside my config use:
 
