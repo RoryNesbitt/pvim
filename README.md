@@ -2,6 +2,11 @@
 
 pvim, AKA seanvim, is an AllInOne-directory Neovim wrapper.
 
+pvim will download the latest Neovim appimage and contain your config and
+plugins to within the download directory. This should work on any linux computer
+that can run an appimage, and can be downloaded from any computer that has git
+and curl.
+
 ## installation
 
 To install it alongside my config use:
@@ -19,7 +24,7 @@ git clone <YOURCONFIG> pvim/config
 
 ## ToDo
 
-- [ ] Check the commands actually work
+- [x] Check the commands actually work
 - [x] Thank the neovim matrix guys
-- [ ] improve the README
+- [x] improve the README
 - [ ] improve the update-command to update your config as well as the appimage
