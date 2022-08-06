@@ -7,6 +7,9 @@ plugins to within the download directory. This should work on any linux computer
 that can run an appimage, and can be downloaded from any computer that has git
 and curl.
 
+This is setup and intended for use with packer based configs, I don't know how
+well it would do with other plugin managers.
+
 ## installation
 
 To install it alongside my config use:
