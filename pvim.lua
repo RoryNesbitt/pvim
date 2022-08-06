@@ -1,8 +1,7 @@
 local dir = os.getenv("PVIM")
 if dir then
   vim.opt.rtp:append(dir .. "/config")
-  vim.opt.rtp:append(dir .. "/pack/packer/start/*")
-  vim.opt.rtp:append(dir .. "/pack/packer/opt/*")
+  vim.cmd('set packpath=' .. dir)
 
   local fn = vim.fn
   local install_path = dir .. "/pack/packer/start/packer.nvim"
