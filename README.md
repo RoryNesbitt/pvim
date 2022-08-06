@@ -27,6 +27,6 @@ git clone <YOURCONFIG> pvim/config
 - [x] Check the commands actually work
 - [x] Thank the neovim matrix guys
 - [x] improve the README
-- [ ] improve the update-command to update your config as well as the appimage
+- [x] improve the update-command to update your config as well as the appimage
 - [ ] Fix that one error from packer `Can't open file /path/to/manifest for writing`
 - [ ] Add windows compatibility
