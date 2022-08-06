@@ -1,8 +1,8 @@
 # Portable-vim
 
-## installation
-
 pvim, AKA seanvim, is an AllInOne-directory Neovim wrapper.
+
+## installation
 
 To install it alongside my config use:
 
