@@ -1,16 +1,22 @@
 #!/usr/bin/env sh
 
+# Get the path to pvim
 export PVIM=$(dirname $(readlink -e -- "$0"))
 
+# check if there is an init/what version it is
 if [ -f $PVIM/config/init.lua ]; then
   INIT="-u $PVIM/config/init.lua"
 elif [ -f $PVIM/config/init.vim ]; then
   INIT="-u $PVIM/config/init.vim"
 fi
 
+#get the appimage if required
 [ -f $PVIM/nvim.appimage ] || $PVIM/pvim-update
+
+#check if packer is installed yet (This is a work around for the packer error)
 if [ -d $PVIM/pack ]; then
   $PVIM/nvim.appimage --clean --cmd "so $PVIM/pvim.lua" $INIT -c "PackerCompile" $@
 else
+  #Don't run PackerCompile on first run, it would error
   $PVIM/nvim.appimage --clean --cmd "so $PVIM/pvim.lua" $INIT $@
 fi
