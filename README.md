@@ -42,3 +42,4 @@ works[I don't like it])
 - [ ] Fix that one error from packer `Can't open file /path/to/manifest for writing`
 - [ ] Add windows compatibility
 - [ ] Remove the PackerCompile workaround, or at least make it nicer
+- [x] support init.vim

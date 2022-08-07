@@ -2,9 +2,15 @@
 
 export PVIM=$(dirname $(readlink -e -- "$0"))
 
+if [ -f $PVIM/config/init.lua ]; then
+  INIT="-u $PVIM/config/init.lua"
+elif [ -f $PVIM/config/init.vim ]; then
+  INIT="-u $PVIM/config/init.vim"
+fi
+
 [ -f $PVIM/nvim.appimage ] || $PVIM/pvim-update
 if [ -d $PVIM/pack ]; then
-  $PVIM/nvim.appimage --clean --cmd "so $PVIM/pvim.lua" -u "$PVIM/config/init.lua" -c "PackerCompile" $@
+  $PVIM/nvim.appimage --clean --cmd "so $PVIM/pvim.lua" $INIT -c "PackerCompile" $@
 else
-  $PVIM/nvim.appimage --clean --cmd "so $PVIM/pvim.lua" -u "$PVIM/config/init.lua" $@
+  $PVIM/nvim.appimage --clean --cmd "so $PVIM/pvim.lua" $INIT $@
 fi
