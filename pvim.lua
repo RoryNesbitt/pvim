@@ -24,11 +24,6 @@ if dir then
   end
 
   packer.init({
-    display = {
-      open_fn = function()
-        return require("packer.util").float({})
-      end,
-    },
     package_root = dir .. '/pack',
     compile_path = dir .. '/plugin/packer_compiled.lua',
   })
