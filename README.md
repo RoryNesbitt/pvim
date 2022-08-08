@@ -40,6 +40,6 @@ works[I don't like it])
 - [x] improve the README
 - [x] improve the update-command to update your config as well as the appimage
 - [ ] Fix that one error from packer `Can't open file /path/to/manifest for writing`
-- [ ] Add windows compatibility
+- [x] Add windows compatibility (in the lua, no pvim.bat yet)
 - [ ] Remove the PackerCompile workaround, or at least make it nicer
 - [x] support init.vim (Or no init)
