@@ -9,6 +9,7 @@ if dir then
   end
 
   vim.opt.rtp:append(join_paths(dir, "config"))
+  vim.opt.rtp:append(dir)
   vim.cmd('set packpath=' .. dir)
   vim.g.loaded_remote_plugins = 1
 

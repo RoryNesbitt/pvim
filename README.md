@@ -27,10 +27,7 @@ git clone <YOURCONFIG> pvim/config
 
 ## Known issues
 
-- Probably related. Files required by a `config = ..` in packer will not be
-required on running pvim. They will be after then running `:PackerCompile` (Temp
-fix added to the launch command. It's weird the first time you launch but it
-works[I don't like it])
+- yo we're doing good here
 
 ## ToDo
 
@@ -40,5 +37,5 @@ works[I don't like it])
 - [x] improve the update-command to update your config as well as the appimage
 - [x] Fix that one error from packer `Can't open file /path/to/manifest for writing`
 - [x] Add windows compatibility (in the lua, no pvim.bat yet)
-- [ ] Remove the PackerCompile workaround, or at least make it nicer
+- [x] Remove the PackerCompile workaround, or at least make it nicer
 - [x] support init.vim (Or no init)
