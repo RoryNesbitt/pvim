@@ -39,3 +39,4 @@ git clone <YOURCONFIG> pvim/config
 - [x] Add windows compatibility (in the lua, no pvim.bat yet)
 - [x] Remove the PackerCompile workaround, or at least make it nicer
 - [x] support init.vim (Or no init)
+- [ ] find other outside files that Neovim uses (e.g. undo directory)
