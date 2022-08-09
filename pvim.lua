@@ -10,6 +10,7 @@ if dir then
 
   vim.opt.rtp:append(join_paths(dir, "config"))
   vim.cmd('set packpath=' .. dir)
+  vim.g.loaded_remote_plugins = 1
 
   local fn = vim.fn
   local install_path = join_paths(dir, "pack", "packer", "start", "packer.nvim")
