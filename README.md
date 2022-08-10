@@ -46,7 +46,7 @@ local function findConfig()
   if configDir then
     configDir = configDir.."/config"
   else
-    configDir = vim.fn.stdpath('config')
+    configDir = vim.fn.stdpath("config")
   end
   return configDir
 end
