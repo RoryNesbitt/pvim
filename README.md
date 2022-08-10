@@ -33,6 +33,25 @@ available it will download the latest appimage.
 If you would rather use the appimage than the current installed version, or you
 want to update the appimage, run `pvim-update`.
 
+## Your Config
+
+For the most part pvim can be used with any packer based config and it will work
+out of the box, however if you have anything specifically referencing
+`vim.fn.stdpath("config")` then you can get the pvim config directory with
+`os.getenv("pvim").."/config"`. The following function will work for both cases:
+
+```lua
+local function findConfig()
+  local configDir = os.getenv("PVIM")
+  if configDir then
+    configDir = configDir.."/config"
+  else
+    configDir = vim.fn.stdpath('config')
+  end
+  return configDir
+end
+```
+
 ## Known issues
 
 - yo we're doing good here
