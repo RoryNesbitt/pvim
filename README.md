@@ -25,6 +25,8 @@ git clone https://github.com/RoryNesbitt/pvim
 git clone <YOURCONFIG> pvim/config
 ```
 
+## First run/getting Neovim
+
 On running `pvim`, it will first look for the Neovim appimage in the pvim
 directory, if it is not there it will check if `nvim` is in path, if neither are
 available it will download the latest appimage.  
