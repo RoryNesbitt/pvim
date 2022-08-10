@@ -10,8 +10,15 @@ elif [ -f $PVIM/config/init.vim ]; then
   INIT="-u $PVIM/config/init.vim"
 fi
 
-#get the appimage if required
-[ -f $PVIM/nvim.appimage ] || $PVIM/pvim-update
+# Determine what Neovim to use
+if [ -f $PVIM/nvim.appimage ]; then
+  NV="$PVIM/nvim.appimage"
+elif command -v nvim > /dev/null; then
+  NV="nvim"
+else
+  $PVIM/pvim-update
+  NV="$PVIM/nvim.appimage"
+fi
 
 #run Neovim with the local files
-$PVIM/nvim.appimage --clean --cmd "so $PVIM/pvim.lua" $INIT $@
+$NV --clean --cmd "so $PVIM/pvim.lua" $INIT $@
