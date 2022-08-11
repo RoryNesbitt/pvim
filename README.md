@@ -25,6 +25,10 @@ git clone https://github.com/RoryNesbitt/pvim
 git clone <YOURCONFIG> pvim/config
 ```
 
+if you are using the Packer_bootstrap from their readme you will need to add
+  `and not os.getenv("PVIM")` to the if condition to avoid double downloading
+  packer
+
 ## First run/getting Neovim
 
 On running `pvim`, it will first look for the Neovim appimage in the pvim
