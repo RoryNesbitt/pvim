@@ -37,4 +37,8 @@ if dir then
     package_root = join_paths(dir, "pack"),
     compile_path = join_paths(dir, "plugin", "packer_compiled.lua"),
   })
+  
+  vim.opt.undodir = join_paths(dir, "clutter", "undo")
+  vim.opt.swapfile = false
+  vim.opt.backup = false
 end
