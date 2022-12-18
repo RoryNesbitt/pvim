@@ -1,3 +1,4 @@
+--TODO: add an install location for mason
 local dir = os.getenv("PVIM")
 if dir then
 

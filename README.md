@@ -64,12 +64,13 @@ their files to the pvim directory
 ## ToDo
 
 - [x] Check the commands actually work
-- [x] Thank the neovim matrix guys
-- [x] improve the README
-- [x] improve the update-command to update your config as well as the appimage
-- [x] Fix that one error from packer `Can't open file /path/to/manifest for writing`
-- [x] Add windows compatibility (in the lua, no pvim.bat yet)
-- [ ] Add pvim.bat
-- [x] Remove the PackerCompile workaround, or at least make it nicer
-- [x] support init.vim (Or no init)
-- [ ] find other outside files that Neovim uses (e.g. undo directory)
+- [x] Thank the neovim matrix guys 
+- [x] improve the README 
+- [x] improve the update-command to update your config as well as the appimage 
+- [x] Fix that one error from packer `Can't open file /path/to/manifest for writing` 
+- [x] Add windows compatibility (in the lua, no pvim.bat yet) 
+- [ ] Add pvim.bat 
+- [x] Remove the PackerCompile workaround, or at least make it nicer 
+- [x] support init.vim (Or no init) 
+- [ ] find other outside files that Neovim uses (e.g. undo directory) 
+- [ ] Add mason.nvim installation directory 
