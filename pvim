@@ -3,13 +3,6 @@
 # Get the path to pvim
 export PVIM=$(dirname $(readlink -e -- "$0"))
 
-# check if there is an init/what version it is
-if [ -f $PVIM/config/init.lua ]; then
-  INIT="-u $PVIM/config/init.lua"
-elif [ -f $PVIM/config/init.vim ]; then
-  INIT="-u $PVIM/config/init.vim"
-fi
-
 # Determine what Neovim to use
 if [ -f $PVIM/nvim.appimage ]; then
   NV="$PVIM/nvim.appimage"
@@ -21,4 +14,4 @@ else
 fi
 
 #run Neovim with the local files
-$NV --clean -i "$PVIM/clutter/shada/state" $INIT --cmd "so $PVIM/previm.lua" -c "so $PVIM/postvim.lua" $@
+$NV --clean -i "$PVIM/clutter/shada/state" -u "$PVIM/pvim.lua" $@

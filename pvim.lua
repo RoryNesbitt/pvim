@@ -36,4 +36,24 @@ if dir then
     package_root = join_paths(dir, "clutter", "packer", "pack"),
     compile_path = join_paths(dir, "clutter", "packer", "plugin", "packer_compiled.lua"),
   })
+
+  -- Load the config
+  local init_path = join_paths(dir, "config", "init.")
+  if io.open(init_path .. "lua", "r") then
+    dofile(join_paths(dir, "config", "init.lua"))
+  elseif io.open(init_path .. "vim", "r") then
+    vim.cmd.source(join_paths(dir, "config", "init.vim"))
+  end
+
+  -- overwrite some settings
+  vim.opt.undodir = join_paths(dir, "clutter", "undo")
+  vim.opt.swapfile = false
+  vim.opt.backup = false
+
+  local mason_exists, mason = pcall(require, "mason")
+  if mason_exists then
+    mason.setup({
+      install_root_dir = join_paths(dir,"clutter", "mason")
+    })
+  end
 end
