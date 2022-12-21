@@ -9,7 +9,7 @@ if dir then
 
   vim.opt.rtp:append(join_paths(dir, "config"))
   vim.opt.rtp:append(join_paths(dir, "clutter", "packer"))
-  vim.cmd('set packpath=' .. join_paths(dir, "clutter", "packer"))
+  vim.cmd.set('packpath=' .. join_paths(dir, "clutter", "packer"))
   vim.g.loaded_remote_plugins = 1
 
   local fn = vim.fn
@@ -24,7 +24,7 @@ if dir then
       install_path,
     })
     print("Installing packer")
-    vim.cmd([[packadd packer.nvim]])
+    vim.cmd.packadd("packer.nvim")
   end
 
   local status_ok, packer = pcall(require, "packer")
