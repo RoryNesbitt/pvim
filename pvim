@@ -21,4 +21,4 @@ else
 fi
 
 #run Neovim with the local files
-$NV --clean $INIT --cmd "so $PVIM/previm.lua" -c "so $PVIM/postvim.lua" $@
+$NV --clean -i "$PVIM/clutter/shada/state" $INIT --cmd "so $PVIM/previm.lua" -c "so $PVIM/postvim.lua" $@
