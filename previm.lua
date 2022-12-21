@@ -8,12 +8,12 @@ if dir then
   end
 
   vim.opt.rtp:append(join_paths(dir, "config"))
-  vim.opt.rtp:append(dir)
-  vim.cmd('set packpath=' .. dir)
+  vim.opt.rtp:append(join_paths(dir, "clutter", "packer"))
+  vim.cmd('set packpath=' .. join_paths(dir, "clutter", "packer"))
   vim.g.loaded_remote_plugins = 1
 
   local fn = vim.fn
-  local install_path = join_paths(dir, "pack", "packer", "start", "packer.nvim")
+  local install_path = join_paths(dir, "clutter", "packer", "pack", "packer", "start", "packer.nvim")
   if fn.empty(fn.glob(install_path)) > 0 then
     Packer_bootstrap = fn.system({
       "git",
@@ -33,7 +33,7 @@ if dir then
   end
 
   packer.init({
-    package_root = join_paths(dir, "pack"),
-    compile_path = join_paths(dir, "plugin", "packer_compiled.lua"),
+    package_root = join_paths(dir, "clutter", "packer", "pack"),
+    compile_path = join_paths(dir, "clutter", "packer", "plugin", "packer_compiled.lua"),
   })
 end
