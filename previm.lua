@@ -1,7 +1,6 @@
 --TODO: add an install location for mason
 local dir = os.getenv("PVIM")
 if dir then
-
   local on_windows = vim.loop.os_uname().version:match 'Windows'
   local function join_paths(...) -- Function from nvim-lspconfig
     local path_sep = on_windows and '\\' or '/'
@@ -38,8 +37,4 @@ if dir then
     package_root = join_paths(dir, "pack"),
     compile_path = join_paths(dir, "plugin", "packer_compiled.lua"),
   })
-  
-  vim.opt.undodir = join_paths(dir, "clutter", "undo")
-  vim.opt.swapfile = false
-  vim.opt.backup = false
 end
