@@ -1,13 +1,22 @@
 local dir = os.getenv("PVIM")
-if dir then
-  local on_windows = vim.loop.os_uname().version:match 'Windows'
-  local function join_paths(...) -- Function from nvim-lspconfig
-    local path_sep = on_windows and '\\' or '/'
-    local result = table.concat({ ... }, path_sep)
-    return result
-  end
+local on_windows = vim.loop.os_uname().version:match 'Windows'
+local function join_paths(...) -- Function from nvim-lspconfig
+  local path_sep = on_windows and '\\' or '/'
+  local result = table.concat({ ... }, path_sep)
+  return result
+end
 
-  vim.opt.rtp:append(join_paths(dir, "config"))
+-- Find the config
+local init_path = join_paths(dir, "config", "init.")
+local init_type = nil
+if io.open(init_path .. "lua", "r") then
+  init_type = "lua"
+elseif io.open(init_path .. "vim", "r") then
+  init_type = "vim"
+end
+
+vim.opt.rtp:append(join_paths(dir, "config"))
+if init_type then
   vim.opt.rtp:append(join_paths(dir, "clutter", "packer"))
   vim.cmd.set('packpath=' .. join_paths(dir, "clutter", "packer"))
   vim.g.loaded_remote_plugins = 1
@@ -27,10 +36,7 @@ if dir then
     vim.cmd.packadd("packer.nvim")
   end
 
-  local status_ok, packer = pcall(require, "packer")
-  if not status_ok then
-    return
-  end
+  local _, packer = pcall(require, "packer")
 
   packer.init({
     package_root = join_paths(dir, "clutter", "packer", "pack"),
@@ -38,22 +44,17 @@ if dir then
   })
 
   -- Load the config
-  local init_path = join_paths(dir, "config", "init.")
-  if io.open(init_path .. "lua", "r") then
-    dofile(join_paths(dir, "config", "init.lua"))
-  elseif io.open(init_path .. "vim", "r") then
-    vim.cmd.source(join_paths(dir, "config", "init.vim"))
-  end
+  vim.cmd.source(init_path .. init_type)
+end -- of if init
 
-  -- overwrite some settings
-  vim.opt.undodir = join_paths(dir, "clutter", "undo")
-  vim.opt.swapfile = false
-  vim.opt.backup = false
+-- overwrite some settings
+vim.opt.undodir = join_paths(dir, "clutter", "undo")
+vim.opt.swapfile = false
+vim.opt.backup = false
 
-  local mason_exists, mason = pcall(require, "mason")
-  if mason_exists then
-    mason.setup({
-      install_root_dir = join_paths(dir,"clutter", "mason")
-    })
-  end
+local mason_exists, mason = pcall(require, "mason")
+if mason_exists then
+  mason.setup({
+    install_root_dir = join_paths(dir,"clutter", "mason")
+  })
 end
