@@ -7,10 +7,10 @@ plugins to within the download directory. This should work on any linux computer
 that can run an appimage, and can be downloaded from any computer that has git
 and curl.
 
-This is setup and intended for use with packer based configs, I don't know how
+This is set up and intended for use with packer based configs, I don't know how
 well it would do with other plugin managers.
 
-## installation
+## Installation
 
 To install it alongside my config use:
 
@@ -25,7 +25,7 @@ git clone https://github.com/RoryNesbitt/pvim
 git clone <YOURCONFIG> pvim/config
 ```
 
-if you are using the Packer_bootstrap from their readme you will need to add
+If you are using the Packer_bootstrap from their readme you will need to add
   `and not os.getenv("PVIM")` to the if condition to avoid double downloading
   packer
 
@@ -73,4 +73,4 @@ their files to the pvim directory
 - [x] Remove the PackerCompile workaround, or at least make it nicer 
 - [x] support init.vim (Or no init) 
 - [ ] find other outside files that Neovim uses (e.g. undo directory) 
-- [ ] Add mason.nvim installation directory 
+- [x] Add mason.nvim installation directory 
