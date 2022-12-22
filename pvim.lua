@@ -39,9 +39,9 @@ if dir then
 
   -- Load the config
   local init_path = join_paths(dir, "config", "init.")
-  if vim.fn.filereadable(init_path .. "lua") then
+  if io.open(init_path .. "lua", "r") then
     dofile(join_paths(dir, "config", "init.lua"))
-  elseif vim.fn.filereadable(init_path .. "vim") then
+  elseif io.open(init_path .. "vim", "r") then
     vim.cmd.source(join_paths(dir, "config", "init.vim"))
   end
 
