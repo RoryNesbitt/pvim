@@ -14,4 +14,4 @@ else
 fi
 
 #run Neovim with the local files
-$NV --clean -i "$PVIM/clutter/shada/state" -u "$PVIM/pvim.lua" $@
+exec $NV --clean -i "$PVIM/clutter/shada/state" -u "$PVIM/pvim.lua" $@
