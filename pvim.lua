@@ -17,31 +17,55 @@ end
 
 vim.opt.rtp:append(join_paths(dir, "config"))
 if init_type then
-  vim.opt.rtp:append(join_paths(dir, "clutter", "packer"))
-  vim.cmd.set('packpath=' .. join_paths(dir, "clutter", "packer"))
-  vim.g.loaded_remote_plugins = 1
+  local real_require = require
+  local plugins = {
+    ["packer"] = function()
+      vim.opt.rtp:append(join_paths(dir, "clutter", "packer"))
+      vim.cmd.set('packpath=' .. join_paths(dir, "clutter", "packer"))
+      vim.g.loaded_remote_plugins = 1
 
-  local fn = vim.fn
-  local install_path = join_paths(dir, "clutter", "packer", "pack", "packer", "start", "packer.nvim")
-  if fn.empty(fn.glob(install_path)) > 0 then
-    Packer_bootstrap = fn.system({
-      "git",
-      "clone",
-      "--depth",
-      "1",
-      "https://github.com/wbthomason/packer.nvim",
-      install_path,
-    })
-    print("Installing packer")
-    vim.cmd.packadd("packer.nvim")
+      local fn = vim.fn
+      local install_path = join_paths(dir, "clutter", "packer", "pack", "packer", "start", "packer.nvim")
+      if fn.empty(fn.glob(install_path)) > 0 then
+        Packer_bootstrap = fn.system({
+          "git",
+          "clone",
+          "--depth",
+          "1",
+          "https://github.com/wbthomason/packer.nvim",
+          install_path,
+        })
+        print("Installing packer")
+        vim.cmd.packadd("packer.nvim")
+      end
+    end,
+    ["mason"] = function()
+      real_require"mason".setup({
+        install_root_dir = join_paths(dir,"clutter", "mason")
+      })
+    end,
+  }
+
+  --Anything that doesn't like being in a table
+  local function extra_bits(plugin)
+    if plugin == "packer" then
+      real_require"packer".init({
+        package_root = join_paths(dir, "clutter", "packer", "pack"),
+        compile_path = join_paths(dir, "clutter", "packer", "plugin", "packer_compiled.lua"),
+      })
+    end
   end
-
-  local _, packer = pcall(require, "packer")
-
-  packer.init({
-    package_root = join_paths(dir, "clutter", "packer", "pack"),
-    compile_path = join_paths(dir, "clutter", "packer", "plugin", "packer_compiled.lua"),
-  })
+  --overwrite require
+  function require(plugin)
+    if plugins[plugin] then
+      --load custom plugin configs before loading plugin
+      plugins[plugin]()
+      plugins[plugin] = nil --only once
+      extra_bits(plugin)
+    end
+    --run the normal require
+    return real_require(plugin)
+  end
 
   -- Load the config
   vim.cmd.source(init_path .. init_type)
@@ -52,9 +76,3 @@ vim.opt.undodir = join_paths(dir, "clutter", "undo")
 vim.opt.swapfile = false
 vim.opt.backup = false
 
-local mason_exists, mason = pcall(require, "mason")
-if mason_exists then
-  mason.setup({
-    install_root_dir = join_paths(dir,"clutter", "mason")
-  })
-end
