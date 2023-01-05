@@ -7,8 +7,15 @@ plugins to within the download directory. This should work on any linux computer
 that can run an appimage, and can be downloaded from any computer that has git
 and curl.
 
-This is set up and intended for use with packer based configs, I don't know how
-well it would do with other plugin managers.
+pvim no longer assumes your plugin manager and only runs setup when you try to
+load one. If you would like to use pvim with a different plugin manager open an
+issue and I'll have a look at support.  
+Note: The plugin manager needs to have an option to change where it installs
+plugins to.
+
+## Supported plugin managers
+- [Packer.nvim](https://github.com/wbthomason/packer.nvim)
+- [Lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ## Installation
 
@@ -25,9 +32,9 @@ git clone https://github.com/RoryNesbitt/pvim
 git clone <YOURCONFIG> pvim/config
 ```
 
-If you are using the Packer_bootstrap from their readme you will need to add
-  `and not os.getenv("PVIM")` to the if condition to avoid double downloading
-  packer
+If you are using a bootstap function you will need to add `and not
+os.getenv("PVIM")` to the if condition to avoid double downloading your plugin
+manager.
 
 ## First run/getting Neovim
 
@@ -39,8 +46,8 @@ want to update the appimage, run `pvim-update`.
 
 ## Your Config
 
-For the most part pvim can be used with any packer based config and it will work
-out of the box, however if you have anything specifically referencing
+For the most part pvim can be used with any config and it will work out of the
+box, however if you have anything specifically referencing
 `vim.fn.stdpath("config")` then you can get the pvim config directory with
 `os.getenv("pvim").."/config"`. The following function will work for both cases:
 
@@ -72,5 +79,5 @@ their files to the pvim directory
 - [ ] Add pvim.bat 
 - [x] Remove the PackerCompile workaround, or at least make it nicer 
 - [x] support init.vim (Or no init) 
-- [ ] find other outside files that Neovim uses (e.g. undo directory) 
+- [x] find other outside files that Neovim uses (e.g. undo directory) 
 - [x] Add mason.nvim installation directory 
