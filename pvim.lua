@@ -39,6 +39,31 @@ if init_type then
         vim.cmd.packadd("packer.nvim")
       end
     end,
+    ["lazy"] = function()
+      local lazypath = join_paths(dir, "clutter", "lazy", "lazy", "lazy.nvim")
+      if not vim.loop.fs_stat(lazypath) then
+        vim.fn.system({
+          "git",
+          "clone",
+          "--filter=blob:none",
+          "https://github.com/folke/lazy.nvim.git",
+          "--branch=stable", -- latest stable release
+          lazypath,
+        })
+      end
+      vim.opt.rtp:prepend(lazypath)
+      local lazy_defaults = real_require"lazy.core.config".defaults
+      local lazy_cache = real_require"lazy.core.cache".config
+      lazy_defaults.root = join_paths(dir, "clutter", "lazy", "lazy")
+      lazy_defaults.lockfile = join_paths(dir, "clutter", "lazy", "lazy-lock.json")
+      lazy_defaults.performance.rtp.reset = false
+      lazy_defaults.performance.rtp.paths = {
+        join_paths(dir, "clutter", "lazy", "lazy"),
+      }
+      lazy_defaults.readme.root = join_paths(dir, "clutter", "state", "lazy", "readme")
+      lazy_cache.enabled = false
+      lazy_cache.path = join_paths(dir, "clutter", "lazy", "cache")
+    end,
     ["mason"] = function()
       real_require"mason".setup({
         install_root_dir = join_paths(dir,"clutter", "mason")
