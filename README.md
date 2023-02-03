@@ -19,17 +19,12 @@ plugins to.
 
 ## Installation
 
-To install it alongside my config use:
-
-```sh
-git clone --recursive https://github.com/RoryNesbitt/pvim
-```
-
-To use your own config run:
+Clone pvim to whatever location you wish then add it to your path.
 
 ```sh
 git clone https://github.com/RoryNesbitt/pvim
 git clone <YOURCONFIG> pvim/config
+PATH="$(pwd)/pvim:$PATH"
 ```
 
 If you are using a bootstap function you will need to add `and not
