@@ -6,5 +6,8 @@ echo "Downloading latest Neovim"
 [ -f $DIR/nvim.appimage ] && rm $DIR/nvim.appimage
 curl -Lo $DIR/nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage && chmod u+x $DIR/nvim.appimage
 
+echo "Updating pvim"
+git --git-dir=$DIR/.git --work-tree=$DIR pull
+
 echo "Updating the config"
-git --git-dir=$DIR/config/.git --work-tree=$DIR/config pull origin main
+git --git-dir=$DIR/config/.git --work-tree=$DIR/config pull
