@@ -53,7 +53,7 @@ if init_type then
       end
       vim.opt.rtp:prepend(lazypath)
       local lazy_defaults = real_require"lazy.core.config".defaults
-      local lazy_cache = real_require"lazy.core.cache".config
+      local lazy_cache = real_require"lazy.core.cache"
       lazy_defaults.root = join_paths(dir, "clutter", "lazy", "lazy")
       lazy_defaults.lockfile = join_paths(dir, "clutter", "lazy", "lazy-lock.json")
       lazy_defaults.performance.rtp.reset = false
