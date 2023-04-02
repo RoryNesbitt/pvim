@@ -31,16 +31,19 @@ If you are using a bootstap function you will need to add `and not
 os.getenv("PVIM")` to the if condition to avoid double downloading your plugin
 manager.
 
-## First run/getting Neovim
+## Finding Neovim
 
 On running `pvim`, it will first look for the Neovim appimage in the pvim
 directory, if it is not there it will check if `nvim` is in path, if neither are
 available it will download the latest appimage.  
-If you would rather use the appimage than the current installed version, or you
-want to update the appimage, run `pvim -u`.
+If you would rather use the appimage than the current installed version, you can
+force it's use with `-f` or specify an appimage location with `-i <appimage>`.
+
+## Updating
 
 You can then use `pvim -u` to update pvim itself, your config (if it is a git
-repo) and the appimage.
+repo) and the appimage (if not using `-i`).
+
 ## Your Config
 
 For the most part pvim can be used with any config and it will work out of the

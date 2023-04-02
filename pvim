@@ -3,31 +3,57 @@
 # Get the path to pvim
 export PVIM=$(dirname $(readlink -e -- "$0"))
 
-updatePvim() {
-  echo "Downloading latest Neovim"
-  [ -f $PVIM/nvim.appimage ] && rm $PVIM/nvim.appimage
-  curl -Lo $PVIM/nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage && chmod u+x $PVIM/nvim.appimage
+downloadAppimage() {
+  if $appimageNeeded && [ "$imageLoc" == "$PVIM/nvim.appimage" ]; then
+    appimageNeeded=false
+    echo "Downloading latest Neovim"
+    [ -f $PVIM/nvim.appimage ] && rm $PVIM/nvim.appimage
+    curl -Lo $PVIM/nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage && chmod u+x $PVIM/nvim.appimage
+  fi
+}
 
+updatepvim() {
   echo "Updating pvim"
   git --git-dir=$PVIM/.git --work-tree=$PVIM pull
 
   echo "Updating the config"
   git --git-dir=$PVIM/config/.git --work-tree=$PVIM/config pull
+
+  if [ "$NV" != "nvim" ]; then
+    downloadAppimage
+  fi
 }
 
-if [ "$1" = "-u" ]; then
-  updatePvim
-  exit
-fi
+dashU=false
+dashF=false
+imageLoc="$PVIM/nvim.appimage"
+while getopts 'ui:f' opts; do
+  case $opts in
+    u)
+      dashU=true
+      ;;
+    f)
+      dashF=true
+      ;;
+    i)
+      imageLoc="$OPTARG"
+      ;;
+  esac
+done
+shift $((OPTIND-1))
 
 # Determine what Neovim to use
-if [ -f $PVIM/nvim.appimage ]; then
-  NV="$PVIM/nvim.appimage"
-elif command -v nvim > /dev/null; then
+if [ -f $imageLoc ]; then
+  NV="$imageLoc"
+elif command -v nvim > /dev/null && ! $dashF; then
   NV="nvim"
 else
-  updatePvim
-  NV="$PVIM/nvim.appimage"
+  downloadAppimage
+  NV="$imageLoc"
+fi
+
+if $dashU; then
+  updatepvim
 fi
 
 #run Neovim with the local files
