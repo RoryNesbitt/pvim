@@ -3,13 +3,30 @@
 # Get the path to pvim
 export PVIM=$(dirname $(readlink -e -- "$0"))
 
+updatePvim() {
+  echo "Downloading latest Neovim"
+  [ -f $PVIM/nvim.appimage ] && rm $PVIM/nvim.appimage
+  curl -Lo $PVIM/nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage && chmod u+x $PVIM/nvim.appimage
+
+  echo "Updating pvim"
+  git --git-dir=$PVIM/.git --work-tree=$PVIM pull
+
+  echo "Updating the config"
+  git --git-dir=$PVIM/config/.git --work-tree=$PVIM/config pull
+}
+
+if [ "$1" = "-u" ]; then
+  updatePvim
+  exit
+fi
+
 # Determine what Neovim to use
 if [ -f $PVIM/nvim.appimage ]; then
   NV="$PVIM/nvim.appimage"
 elif command -v nvim > /dev/null; then
   NV="nvim"
 else
-  $PVIM/pvim-update
+  updatePvim
   NV="$PVIM/nvim.appimage"
 fi
 
