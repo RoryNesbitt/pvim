@@ -27,7 +27,8 @@ updatepvim() {
 dashU=false
 dashF=false
 imageLoc="$PVIM/nvim.appimage"
-while getopts 'ui:f' opts; do
+optrem=1
+while getopts ':ui:f' opts; do
   case $opts in
     u)
       dashU=true
@@ -38,9 +39,13 @@ while getopts 'ui:f' opts; do
     i)
       imageLoc="$OPTARG"
       ;;
+    *)
+      #Don't shift options that are meant for nvim
+      optrem=$((optrem+1))
+      ;;
   esac
 done
-shift $((OPTIND-1))
+shift $((OPTIND-optrem))
 
 # Determine what Neovim to use
 if [ -f $imageLoc ]; then
