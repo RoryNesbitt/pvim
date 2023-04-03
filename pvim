@@ -39,6 +39,9 @@ while getopts ':ui:f' opts; do
     i)
       imageLoc="$OPTARG"
       ;;
+    --)
+      break
+      ;;
     *)
       #Don't shift options that are meant for nvim
       optrem=$((optrem+1))
