@@ -1,32 +1,32 @@
 #!/usr/bin/env sh
 
 # Get the path to pvim
-export PVIM=$(dirname $(readlink -e -- "$0"))
+export PVIM="$(dirname "$(readlink -e -- "$0")")"
 
 downloadAppimage() {
-  if $appimageNeeded && [ "$imageLoc" == "$PVIM/nvim.appimage" ]; then
+  if $appimageNeeded && [ "$imageLocation" = "$PVIM/nvim.appimage" ]; then
     appimageNeeded=false
     echo "Downloading latest Neovim"
-    [ -f $PVIM/nvim.appimage ] && rm $PVIM/nvim.appimage
-    curl -Lo $PVIM/nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage && chmod u+x $PVIM/nvim.appimage
+    [ -f "$imageLocation" ] && rm "$imageLocation"
+    curl -Lo "$imageLocation" https://github.com/neovim/neovim/releases/latest/download/nvim.appimage && chmod u+x "$imageLocation"
   fi
 }
 
 updatepvim() {
   echo "Updating pvim"
-  git --git-dir=$PVIM/.git --work-tree=$PVIM pull
+  git --git-dir="$PVIM/.git" --work-tree="$PVIM" pull
 
   echo "Updating the config"
-  git --git-dir=$PVIM/config/.git --work-tree=$PVIM/config pull
+  git --git-dir="$PVIM/config/.git" --work-tree="$PVIM/config" pull
 
-  if [ "$NV" != "nvim" ]; then
+  if [ "$nvim" != "nvim" ]; then
     downloadAppimage
   fi
 }
 
 dashU=false
 dashF=false
-imageLoc="$PVIM/nvim.appimage"
+imageLocation="$PVIM/nvim.appimage"
 dashH=false
 optrem=1
 while getopts ':ui:fh' opts; do
@@ -38,7 +38,7 @@ while getopts ':ui:fh' opts; do
       dashF=true
       ;;
     i)
-      imageLoc="$OPTARG"
+      imageLocation="$OPTARG"
       ;;
     h)
       dashH=true
@@ -55,13 +55,13 @@ done
 shift $((OPTIND-optrem))
 
 # Determine what Neovim to use
-if [ -f $imageLoc ]; then
-  NV="$imageLoc"
+if [ -f "$imageLocation" ]; then
+  nvim="$imageLocation"
 elif command -v nvim > /dev/null && ! $dashF; then
-  NV="nvim"
+  nvim="nvim"
 else
   downloadAppimage
-  NV="$imageLoc"
+  nvim="$imageLocation"
 fi
 
 if $dashH; then
@@ -85,4 +85,4 @@ if $dashU; then
 fi
 
 #run Neovim with the local files
-exec $NV --clean -i "$PVIM/clutter/shada/state" -u "$PVIM/pvim.lua" $@
+exec "$nvim" --clean -i "$PVIM/clutter/shada/state" -u "$PVIM/pvim.lua" "$@"
