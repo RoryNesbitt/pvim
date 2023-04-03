@@ -27,8 +27,9 @@ updatepvim() {
 dashU=false
 dashF=false
 imageLoc="$PVIM/nvim.appimage"
+dashH=false
 optrem=1
-while getopts ':ui:f' opts; do
+while getopts ':ui:fh' opts; do
   case $opts in
     u)
       dashU=true
@@ -38,6 +39,9 @@ while getopts ':ui:f' opts; do
       ;;
     i)
       imageLoc="$OPTARG"
+      ;;
+    h)
+      dashH=true
       ;;
     --)
       break
@@ -59,6 +63,22 @@ else
   downloadAppimage
   NV="$imageLoc"
 fi
+
+if $dashH; then
+  echo "Usage:
+  pvim [options] [neovimOptions]  Edit a file as your would with Neovim
+
+Options:
+  --                    Pass all following arguments to Neovim
+
+  -u                    Update pvim, config(if git), and the appimage(if in use)
+  -f                    Force the use of appimage over installed nvim
+  -i <appimage>         specify the image path
+
+Use \"pvim -- -h\" to see neovim help"
+  exit
+fi
+
 
 if $dashU; then
   updatepvim
