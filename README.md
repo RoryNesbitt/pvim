@@ -7,15 +7,10 @@ plugins to within the download directory. This should work on any linux computer
 that can run an appimage, and can be downloaded from any computer that has git
 and curl.
 
-pvim no longer assumes your plugin manager and only runs setup when you try to
-load one. If you would like to use pvim with a different plugin manager open an
-issue and I'll have a look at support.  
-Note: The plugin manager needs to have an option to change where it installs
-plugins to.
-
-## Supported plugin managers
-- [Packer.nvim](https://github.com/wbthomason/packer.nvim)
-- [Lazy.nvim](https://github.com/folke/lazy.nvim)
+pvim now overrides where neovim sees the standard paths. This should work for
+any plugin manager, if yours doesn't work open an issue and I will see what I
+can do. If you find this breaks a tool that you like to call from neovim, I'll
+try to fix that too.
 
 ## Installation
 
@@ -26,10 +21,6 @@ git clone https://github.com/RoryNesbitt/pvim
 git clone <YOURCONFIG> pvim/config
 PATH="$(pwd)/pvim:$PATH"
 ```
-
-If you are using a bootstap function you will need to add `and not
-os.getenv("PVIM")` to the if condition to avoid double downloading your plugin
-manager.
 
 ## Finding Neovim
 
@@ -46,27 +37,20 @@ repo) and the appimage (if not using `-i`).
 
 ## Your Config
 
-For the most part pvim can be used with any config and it will work out of the
-box, however if you have anything specifically referencing
-`vim.fn.stdpath("config")` then you can get the pvim config directory with
-`os.getenv("pvim").."/config"`. The following function will work for both cases:
+pvim should run any config without changes, you no longer need to include a
+check in your bootstrapper.
+If you ever want to check if you are running in pvim use `os.getenv("pvim")`.
 
-```lua
-local function findConfig()
-  local configDir = os.getenv("PVIM")
-  if configDir then
-    configDir = configDir.."/config"
-  else
-    configDir = vim.fn.stdpath("config")
-  end
-  return configDir
-end
-```
+## Why change stdpath?
 
-## Known issues
+With the release of 0.12 and vim.pack I wanted to support users that are now
+using that, which meant I needed to start doing so myself. I quickly discovered
+that although I can change packpath that will only change where neovim looks for
+the plugins, not where it installs them.
 
-- plugins which specifically look for the xdg standard directories will not contain
-their files to the pvim directory
+Previously I have always avoided changing standard paths as I don't want to
+break any external calls you make from neovim, I think overriding vim.fn.stdpath
+is a fair compromise.
 
 ## ToDo
 
@@ -81,3 +65,4 @@ their files to the pvim directory
 - [x] support init.vim (Or no init) 
 - [x] find other outside files that Neovim uses (e.g. undo directory) 
 - [x] Add mason.nvim installation directory 
+- [x] Support vim.pack (and potentially all plugin managers implicitly)
