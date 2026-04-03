@@ -9,6 +9,9 @@ end
 
 -- Redirect all relevant stdpaths into the pvim directory
 vim.fn.stdpath = function(loc)
+  if loc == "config" then
+    return join_paths(dir, "config")
+  end
   return join_paths(dir, "clutter", loc)
 end
 
