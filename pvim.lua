@@ -38,6 +38,18 @@ if init_type then
       lazy_defaults.performance.rtp.reset = false
       lazy_cache.enabled = false
     end,
+    ["nvim-treesitter"] = function()
+      if vim.fn.executable("tree-sitter") == 1 then
+        return real_require "nvim-treesitter"
+      end
+
+      local no_op = {
+        install = function() return {} end
+      }
+      --make sure future requires still hit this
+      package.loaded["nvim-treesitter"] = no_op
+      return no_op
+    end,
   }
 
   function require(plugin)
