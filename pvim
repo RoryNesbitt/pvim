@@ -4,11 +4,27 @@
 export PVIM="$(dirname "$(readlink -e -- "$0")")"
 
 downloadAppimage() {
-  if $appimageNeeded && [ "$imageLocation" = "$PVIM/nvim.appimage" ]; then
+  if [ "$imageLocation" = "$PVIM/nvim.appimage" ]; then
     appimageNeeded=false
-    echo "Downloading latest Neovim"
+    if [ -z "$nightly" ]; then
+      getNightlyStatus
+    fi
+    if $nightly; then
+      download_loc="download/nightly"
+    else
+      download_loc="latest/download"
+    fi
+    echo "Downloading Neovim"
     [ -f "$imageLocation" ] && rm "$imageLocation"
-    curl -Lo "$imageLocation" https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage && chmod u+x "$imageLocation"
+    curl -Lo "$imageLocation" "https://github.com/neovim/neovim/releases/$download_loc/nvim-linux-x86_64.appimage" && chmod u+x "$imageLocation"
+  fi
+}
+
+getNightlyStatus() {
+  if [ -f "$imageLocation" ]; then
+    "$imageLocation" -v 2>/dev/null | grep -q '\-dev' && nightly=true || nightly=false
+  else
+    nightly=false
   fi
 }
 
@@ -25,20 +41,26 @@ updatepvim() {
 }
 
 dashU=false
-dashF=false
+nightly=""
+appimageNeeded=false
 imageLocation="$PVIM/nvim.appimage"
 dashH=false
 optrem=1
-while getopts ':ui:fh' opts; do
+while getopts ':ui:snh' opts; do
   case $opts in
     u)
       dashU=true
       ;;
-    f)
-      dashF=true
-      ;;
     i)
       imageLocation="$OPTARG"
+      ;;
+    s)
+      nightly=false
+      appimageNeeded=true
+      ;;
+    n)
+      nightly=true
+      appimageNeeded=true
       ;;
     h)
       dashH=true
@@ -57,10 +79,10 @@ shift $((OPTIND-optrem))
 # Determine what Neovim to use
 if [ -f "$imageLocation" ]; then
   nvim="$imageLocation"
-elif command -v nvim > /dev/null && ! $dashF; then
+elif command -v nvim > /dev/null && ! $appimageNeeded; then
   nvim="nvim"
 else
-  downloadAppimage
+  appimageNeeded=true
   nvim="$imageLocation"
 fi
 
@@ -72,16 +94,18 @@ Options:
   --                    Pass all following arguments to Neovim
 
   -u                    Update pvim, config(if git), and the appimage(if in use)
-  -f                    Force the use of appimage over installed nvim
+  -s                    Download latest stable appimage
+  -n                    Download latest nightly appimage
   -i <appimage>         specify the image path
 
 Use \"pvim -- -h\" to see neovim help"
   exit
 fi
 
-
 if $dashU; then
   updatepvim
+elif $appimageNeeded; then
+  downloadAppimage
 fi
 
 #run Neovim with the local files
