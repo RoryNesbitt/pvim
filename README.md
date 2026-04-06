@@ -19,7 +19,7 @@ Clone pvim to whatever location you wish then add it to your path.
 ```sh
 git clone https://github.com/RoryNesbitt/pvim
 git clone <YOURCONFIG> pvim/config
-PATH="$(pwd)/pvim:$PATH"
+ln -s "$(pwd)/pvim/pvim" "~/.local/bin/pvim"
 ```
 
 ## Finding Neovim
