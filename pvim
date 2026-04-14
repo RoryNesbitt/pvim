@@ -14,9 +14,21 @@ downloadAppimage() {
     else
       download_loc="latest/download"
     fi
+    arch=$(uname -m)
+    case "$arch" in
+      x86_64|arm64)
+        ;;
+      aarch64)
+        arch="arm64"
+        ;;
+      *)
+        echo "Unsupported architecture: $arch"
+        return 1
+        ;;
+    esac
     echo "Downloading Neovim"
     [ -f "$imageLocation" ] && rm "$imageLocation"
-    curl -Lo "$imageLocation" "https://github.com/neovim/neovim/releases/$download_loc/nvim-linux-x86_64.appimage" && chmod u+x "$imageLocation"
+    curl -Lo "$imageLocation" "https://github.com/neovim/neovim/releases/$download_loc/nvim-linux-$arch.appimage" && chmod u+x "$imageLocation"
   fi
 }
 
