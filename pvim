@@ -58,7 +58,14 @@ appimageNeeded=false
 imageLocation="$PVIM/nvim.appimage"
 dashH=false
 optrem=1
-while getopts ':ui:snh' opts; do
+while true; do
+  eval "nextarg=\${$OPTIND}"
+  case "$nextarg" in
+    --?*)
+      break
+      ;;
+  esac
+  getopts ':ui:snh' opts || break
   case $opts in
     u)
       dashU=true
