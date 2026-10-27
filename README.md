@@ -12,6 +12,12 @@ any plugin manager, if yours doesn't work open an issue and I will see what I
 can do. If you find this breaks a tool that you like to call from neovim, I'll
 try to fix that too.
 
+> ![Static Badge](https://img.shields.io/badge/Status-Stable-brightgreen)
+>
+> This project doesn't see many updates recently but I will still fix any issues
+> and work on new features as they come up. Maybe one day I'll even get round to
+> windows support.
+
 ## Installation
 
 Clone pvim to whatever location you wish then add it to your path.
@@ -55,18 +61,3 @@ the plugins, not where it installs them.
 Previously I have always avoided changing standard paths as I don't want to
 break any external calls you make from neovim, I think overriding vim.fn.stdpath
 is a fair compromise.
-
-## ToDo
-
-- [x] Check the commands actually work
-- [x] Thank the neovim matrix guys 
-- [x] improve the README 
-- [x] improve the update-command to update your config as well as the appimage 
-- [x] Fix that one error from packer `Can't open file /path/to/manifest for writing` 
-- [x] Add windows compatibility (in the lua, no pvim.bat yet) 
-- [ ] Add pvim.bat 
-- [x] Remove the PackerCompile workaround, or at least make it nicer 
-- [x] support init.vim (Or no init) 
-- [x] find other outside files that Neovim uses (e.g. undo directory) 
-- [x] Add mason.nvim installation directory 
-- [x] Support vim.pack (and potentially all plugin managers implicitly)
