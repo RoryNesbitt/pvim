@@ -27,8 +27,12 @@ ln -s "$(pwd)/pvim/pvim" "~/.local/bin/pvim"
 On running `pvim`, it will first look for the Neovim appimage in the pvim
 directory, if it is not there it will check if `nvim` is in path, if neither are
 available it will download the latest appimage.  
+
 If you would rather use the appimage than the current installed version, you can
-force it's use with `-f` or specify an appimage location with `-i <appimage>`.
+tell pvim to download it with either `-s` for stable or `-n` for nightly.
+
+Alternatively, you may manually specify the path to an appimage with `-i
+<appimage>`.
 
 ## Updating
 
